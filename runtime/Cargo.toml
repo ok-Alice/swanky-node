@@ -50,6 +50,25 @@ pallet-dapps-staking = { git = "https://github.com/AstarNetwork/astar-frame", br
 # pallet-asset chain-extension
 pallet-chain-extension-assets = { git = "https://github.com/AstarNetwork/astar-frame", branch = "polkadot-v0.9.39", default-features = false }
 
+pallet-xcm = { git = "https://github.com/AstarNetwork/astar-frame", default-features = false, branch = "polkadot-v0.9.39" }
+
+# Polkadot
+polkadot-parachain = { git = "https://github.com/paritytech/polkadot", default-features = false, branch = "release-v0.9.39" }
+polkadot-runtime-common = { git = "https://github.com/paritytech/polkadot", default-features = false, branch = "release-v0.9.39" }
+
+# Cumulus
+cumulus-pallet-aura-ext = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.39", default-features = false }
+cumulus-pallet-dmp-queue = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.39", default-features = false }
+cumulus-pallet-parachain-system = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.39", default-features = false }
+cumulus-pallet-session-benchmarking = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.39", version = "3.0.0", default-features = false }
+cumulus-pallet-xcm = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.39", default-features = false }
+cumulus-pallet-xcmp-queue = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.39", default-features = false }
+cumulus-primitives-core = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.39", default-features = false }
+cumulus-primitives-timestamp = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.39", default-features = false }
+cumulus-primitives-utility = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.39", default-features = false }
+pallet-collator-selection = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.39", default-features = false }
+parachain-info = { git = "https://github.com/paritytech/cumulus.git", branch = "polkadot-v0.9.39", default-features = false }
+
 # Used for the node template's RPCs
 frame-system-rpc-runtime-api = { default-features = false, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.39" }
 pallet-transaction-payment-rpc-runtime-api = { default-features = false, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.39" }
@@ -60,8 +79,12 @@ frame-system-benchmarking = { default-features = false, git = "https://github.co
 hex-literal = { version = "0.3.4", optional = true }
 log = { version = "0.4.17", optional = true }
 
+xcm = { git = "https://github.com/paritytech/polkadot", default-features = false, branch = "release-v0.9.39" }
+xcm-builder = { git = "https://github.com/paritytech/polkadot", default-features = false, branch = "release-v0.9.39" }
+xcm-executor = { git = "https://github.com/paritytech/polkadot", default-features = false, branch = "release-v0.9.39" }
+
 [build-dependencies]
-substrate-wasm-builder = { version = "5.0.0-dev", git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.39" }
+substrate-wasm-builder = { version = "5.0.0-dev", git = "https://github.com/paritytech/substrate.git", optional = true, branch = "polkadot-v0.9.39" }
 
 [features]
 default = [
@@ -69,6 +92,14 @@ default = [
 ]
 std = [
 	"codec/std",
+	"cumulus-pallet-aura-ext/std",
+	"cumulus-pallet-dmp-queue/std",
+	"cumulus-pallet-parachain-system/std",
+	"cumulus-pallet-xcm/std",
+	"cumulus-pallet-xcmp-queue/std",
+	"cumulus-primitives-core/std",
+	"cumulus-primitives-timestamp/std",
+	"cumulus-primitives-utility/std",
 	"scale-info/std",
 	"frame-executive/std",
 	"frame-support/std",
@@ -85,6 +116,11 @@ std = [
 	"pallet-transaction-payment-rpc-runtime-api/std",
 	"pallet-transaction-payment/std",
 	"pallet-utility/std",
+	"pallet-xcm/std",
+	"pallet-chain-extension-assets/std",
+	"parachain-info/std",
+	"polkadot-parachain/std",
+	"polkadot-runtime-common/std",
 	"sp-api/std",
 	"sp-block-builder/std",
 	"sp-core/std",
@@ -95,7 +131,10 @@ std = [
 	"sp-std/std",
 	"sp-transaction-pool/std",
 	"sp-version/std",
-	"pallet-chain-extension-assets/std",
+	"xcm-builder/std",
+	"xcm-executor/std",
+	"xcm/std",
+	"substrate-wasm-builder",
 ]
 runtime-benchmarks = [
 	"frame-benchmarking/runtime-benchmarks",
@@ -112,6 +151,11 @@ runtime-benchmarks = [
 ]
 try-runtime = [
 	"log",
+	"cumulus-pallet-aura-ext/try-runtime",
+	"cumulus-pallet-dmp-queue/try-runtime",
+	"cumulus-pallet-parachain-system/try-runtime",
+	"cumulus-pallet-xcm/try-runtime",
+	"cumulus-pallet-xcmp-queue/try-runtime",
 	"frame-system/try-runtime",
 	"frame-executive/try-runtime",
 	"frame-try-runtime",
@@ -125,4 +169,6 @@ try-runtime = [
 	"pallet-assets/try-runtime",
 	"pallet-contracts/try-runtime",
 	"pallet-uniques/try-runtime",
+	"pallet-xcm/try-runtime",
+	"parachain-info/try-runtime",
 ]
